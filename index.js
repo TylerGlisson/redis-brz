@@ -30,6 +30,17 @@ app.get('/', function(req, res) {
     });
 });
 
+app.post('/task/add', function(req, res){
+    let task = req.body.task;
+    client.rpush('tasks', task, function(err, reply){
+        if(err){
+            console.log(err);
+        }
+        console.log('Task Added...');
+        res.redirect('/');
+    });
+});
+
 app.listen(3000);
 console.log('Server started on port 3000');
 
